@@ -1,0 +1,12 @@
+src/node_modules
+src/coverage
+node_modules/
+src/.env
+npm-debug.log
+*.sqlite
+.vscode
+.nyc_output
+.idea
+data
+src/newrelic_agent.log
+newrelic_agent.log

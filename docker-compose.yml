@@ -1,0 +1,22 @@
+version: "3.7"
+
+services:
+  api:
+    build: .
+    ports:
+      - 3000:3000
+      - 9229:9229
+    environment:
+      NODE_ENV: run
+    volumes:
+      - ./src:/usr/src/app
+      - ./deploy:/usr/src/app/deploy
+      - api_modules:/usr/src/app/node_modules
+    command: npm run dev
+    networks:
+      - voicemod
+volumes:
+  api_modules:
+    driver: local
+networks:
+  voicemod:

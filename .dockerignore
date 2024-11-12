@@ -1,0 +1,8 @@
+../test-node/src/node_modules
+src/__mocks__
+src/.eslintrc
+src/test
+.gitignore
+.git
+deploy
+test
