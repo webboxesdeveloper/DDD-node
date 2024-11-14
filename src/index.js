@@ -12,6 +12,7 @@ const container = require('./container');
 const productRoutes = require('./infrastructure/rest/product-controller');
 const handleError = require('./infrastructure/rest/middleware/error-handler');
 const gracefulStopper = container.resolve('gracefulStopper');
+const eventBus = require('./infrastructure/event-bus');
 
 app.use(morgan('HTTP :method :url :remote-addr - [:date[clf]] [:status] - :response-time ms',
     {'stream': metricsLogger({logger})}));
@@ -27,6 +28,10 @@ app.use('*', function(req, res) {
 app.use(handleError);
 
 const server = app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
+
+eventBus.on('ProductCreatedEvent', (event) => {
+  console.log(`Product created: ${event.productId}, ${event.name}, ${event.price}`);
+});
 
 const signals = ['SIGINT', 'SIGTERM', 'SIGUSR1', 'SIGUSR2'];
 process.stdin.resume();

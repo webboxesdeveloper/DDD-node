@@ -1,6 +1,7 @@
 const AggregateRoot = require('../base/aggregate-root');
 const InvalidProductError = require('./invalid-product-error');
 const {isEmpty, isNumber} = require('../../common/helpers');
+const ProductUpdatedEvent = require('../events/product-updated-event');
 
 class Product extends AggregateRoot {
   constructor({id, name, price, createdAt, updatedAt}) {
@@ -11,6 +12,14 @@ class Product extends AggregateRoot {
     this.price = price;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+  }
+
+  updateDetails({name, price}) {
+    if (name) this.name = name;
+    if (price) this.price = price;
+    this.updatedAt = new Date();
+
+    this.addEvent(new ProductUpdatedEvent(this));
   }
 
   set id(id) {
