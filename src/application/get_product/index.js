@@ -1,5 +1,3 @@
-// const GetProductResponse = require('./get-product-response');
-
 class GetProduct {
   constructor({productRepository}) {
     this.productRepository = productRepository;
